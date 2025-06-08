@@ -111,7 +111,27 @@ function isCapital(letter) {
   return false;
 }
 
-function analyzeArray() {}
+class ArrInfo {
+  constructor(average, min, max, lngth) {
+    this.average = average;
+    this.min = min;
+    this.max = max;
+    this.length = lngth;
+  }
+}
+
+function analyzeArray(arr) {
+  if (arr.length === 0) {
+    return new ArrInfo(NaN, NaN, NaN, 0);
+  }
+  const sum = arr.reduce((acc, cv) => acc + cv, 0);
+  let lngth = arr.length;
+  let avrg = sum / lngth;
+  let min = Math.min(...arr);
+  let max = Math.max(...arr);
+
+  return new ArrInfo(avrg, min, max, lngth);
+}
 
 module.exports = {
   capitalize,
@@ -120,3 +140,5 @@ module.exports = {
   caesarCipher,
   analyzeArray,
 };
+
+//help to think of edge cases for testing for this task, NO CODE AS A SOLUTION!!!!

@@ -68,3 +68,90 @@ test("caesarCipher", () => {
   expect(caesarCipher("abc", -26)).toBe("abc");
   expect(caesarCipher("def", -29)).toBe("abc");
 });
+
+test("analyzeArray", () => {
+  expect(analyzeArray([1, 8, 3, 4, 2, 6])).toEqual({
+    average: 4,
+    min: 1,
+    max: 8,
+    length: 6,
+  });
+  expect(analyzeArray([7])).toEqual({
+    average: 7,
+    min: 7,
+    max: 7,
+    length: 1,
+  });
+  expect(analyzeArray([5, 5, 5, 5])).toEqual({
+    average: 5,
+    min: 5,
+    max: 5,
+    length: 4,
+  });
+  expect(analyzeArray([-1, -5, -2, -10])).toEqual({
+    average: -4.5,
+    min: -10,
+    max: -1,
+    length: 4,
+  });
+  expect(analyzeArray([-5, 0, 10, -2, 7])).toEqual({
+    average: 2,
+    min: -5,
+    max: 10,
+    length: 5,
+  });
+  expect(analyzeArray([1.5, 2.0, 3.5, 4.0])).toEqual({
+    average: 2.75,
+    min: 1.5,
+    max: 4.0,
+    length: 4,
+  });
+  const largeArray = Array.from(
+    {
+      length: 1000,
+    },
+    (_, i) => i + 1
+  );
+  expect(analyzeArray(largeArray)).toEqual({
+    average: 500.5,
+    min: 1,
+    max: 1000,
+    length: 1000,
+  });
+  expect(analyzeArray([1000000000, 2000000000, 500000000])).toEqual({
+    average: 1166666666.6666667,
+    min: 500000000,
+    max: 2000000000,
+    length: 3,
+  });
+  expect(analyzeArray([0.001, -0.001, 0])).toEqual({
+    average: 0,
+    min: -0.001,
+    max: 0.001,
+    length: 3,
+  });
+  expect(analyzeArray([1, Infinity, 3])).toEqual({
+    average: Infinity, // (1 + Infinity + 3) / 3 = Infinity
+    min: 1,
+    max: Infinity,
+    length: 3,
+  });
+  expect(analyzeArray([1, -Infinity, 3])).toEqual({
+    average: -Infinity, // (1 - Infinity + 3) / 3 = -Infinity
+    min: -Infinity,
+    max: 3,
+    length: 3,
+  });
+  expect(analyzeArray([])).toEqual({
+    average: NaN,
+    min: NaN,
+    max: NaN,
+    length: 0,
+  });
+  expect(analyzeArray([NaN])).toEqual({
+    average: NaN,
+    min: NaN,
+    max: NaN,
+    length: 1,
+  });
+});
